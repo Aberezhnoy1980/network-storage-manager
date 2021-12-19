@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="center" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.aberezhnoy.client.controller.Controller">
+    <HBox fx:id="loginPanel" alignment="CENTER">
+        <VBox alignment="TOP_CENTER" spacing="5.0">
+            <TextField fx:id="loginField" alignment="TOP_LEFT" onAction="#login" promptText="Введите логин" HBox.hgrow="ALWAYS" />
+            <PasswordField fx:id="passwordField" onAction="#login" promptText="Введите пароль" HBox.hgrow="ALWAYS" />
+            <Button alignment="CENTER" contentDisplay="CENTER" onAction="#login" text="Войти" />
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+        </VBox>
+    </HBox>
+    <HBox fx:id="workPanel">
+        <VBox HBox.hgrow="ALWAYS">
+            <TextField alignment="CENTER" editable="false" text="Файловая система клиента" HBox.hgrow="ALWAYS" />
+            <HBox>
+                <TextField fx:id="clientPathToFile" editable="false" HBox.hgrow="ALWAYS" />
+                <Button onAction="#clientMoveUpInFilePath" text="Вверх" />
+            </HBox>
+            <TableView fx:id="clientFiles" HBox.hgrow="ALWAYS" />
+        </VBox>
+
+
+        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="80.0">
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="29.0" prefWidth="60.0" focusTraversable="false" onAction="#upload" text="&gt;" underline="true">
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
+            </Button>
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="29.0" prefWidth="60.0" focusTraversable="false" onAction="#upload" text="&gt;&gt;" underline="true">
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
+            </Button>
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="29.0" prefWidth="60.0" focusTraversable="false" onAction="#download" text="&lt;&lt;" underline="true">
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
+            </Button>
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="29.0" prefWidth="60.0" text="&lt;" focusTraversable="false" onAction="#download" underline="true">
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
+            </Button>
+        </VBox>
+
+
+        <VBox HBox.hgrow="ALWAYS">
+            <TextField alignment="CENTER" editable="false" text="Папка с файлами в облаке" HBox.hgrow="ALWAYS" />
+            <HBox>
+                <TextField fx:id="serverPathToFile" editable="false" HBox.hgrow="ALWAYS" />
+            </HBox>
+            <TableView fx:id="serverFiles" HBox.hgrow="ALWAYS" />
+        </VBox>
+    </HBox>
+
+    <HBox alignment="CENTER" spacing="5.0" VBox.vgrow="ALWAYS">
+        <Button fx:id="downloadButton" alignment="CENTER" focusTraversable="false" onAction="#download" text="Загрузить файл из облака" HBox.hgrow="ALWAYS">
+         <HBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </HBox.margin></Button>
+        <Button fx:id="uploadButton" alignment="CENTER" focusTraversable="false" onAction="#upload" text="Выгрузить файл в облако" HBox.hgrow="ALWAYS" />
+    </HBox>
+   <HBox/>
+
+</VBox>

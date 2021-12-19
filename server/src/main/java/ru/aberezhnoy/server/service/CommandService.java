@@ -1,0 +1,10 @@
+package ru.aberezhnoy.server.service;
+
+import ru.aberezhnoy.common.domain.Command;
+
+public interface CommandService {
+
+    Object processCommand(Command command);
+
+    String getCommand();
+}

@@ -11,7 +11,7 @@ public class FailedLoginCommand implements CommandService {
     @Override
     public void processCommand(Command command) {
         Controller currentController = (Controller) MainClientApplication.getActiveController();
-        currentController.createAlertOnGUI("Такой логин уже существует" + " с другим паролем. Введите другую пару логин/пароль для регистрации");
+        currentController.createAlertOnGUI("Такой логин уже существует с другим паролем. Введите другую пару логин/пароль для регистрации");
     }
 
     @Override

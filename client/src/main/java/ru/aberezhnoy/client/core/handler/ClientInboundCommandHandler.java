@@ -5,6 +5,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import ru.aberezhnoy.client.core.ClientPipelineCheckoutService;
 import ru.aberezhnoy.client.factory.Factory;
 import ru.aberezhnoy.client.service.Callback;
 import ru.aberezhnoy.client.service.CommandDictionaryService;
@@ -32,6 +33,7 @@ public class ClientInboundCommandHandler extends SimpleChannelInboundHandler<Com
             ClientPipelineCheckoutService.createPipelineForFilesSending(ctx);
 
             commandDictionary.processCommand(command);
+
         } else if (command.getCommandName().startsWith(CommandType.UPLOAD_FINISHED.toString())) {
             LOGGER.info("Получена с сервера команда UPLOAD_FINISHED для файла " + Arrays.asList(command.getArgs()));
 
@@ -41,10 +43,10 @@ public class ClientInboundCommandHandler extends SimpleChannelInboundHandler<Com
 
             setButtonsAble();
         } else if (command.getCommandName().startsWith(CommandType.READY_TO_DOWNLOAD.toString())) {
-            LOGGER.info("Получена с сервера команда READY_TO_DOWLOAD с аргументами " + Arrays.asList(command.getArgs()));
+            LOGGER.info("Получена с сервера команда READY_TO_DOWNLOAD с аргументами " + Arrays.asList(command.getArgs()));
 
             ClientPipelineCheckoutService.createPipelineForInboundFilesReceiving(ctx, (String) command.getArgs()[0],
-                    (String) command.getArgs()[3], (Long) command.getArgs([2], setButtonsAbleAndUpdateFilesListCallback);
+                    (String) command.getArgs()[3], (Long) command.getArgs()[2], setButtonsAbleAndUpdateFilesListCallback);
 
             sendReadyToReceiveCommand(ctx, command);
 
@@ -56,7 +58,7 @@ public class ClientInboundCommandHandler extends SimpleChannelInboundHandler<Com
     private void sendFilesListCommand(ChannelHandlerContext ctx, Command command) {
         String[] args = {(String) command.getArgs()[1]};
         ctx.writeAndFlush(new Command(CommandType.FILES_LIST.toString(), args));
-        LOGGER.info("На сервер отправлена команда FILES_LIST с аргументами " + args);
+        LOGGER.info("На сервер отправлена команда FILES_LIST с аргументами " + Arrays.toString(args));
     }
 
     private void setButtonsAble() {
