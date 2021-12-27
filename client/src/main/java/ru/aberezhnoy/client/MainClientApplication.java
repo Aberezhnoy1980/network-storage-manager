@@ -8,8 +8,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import ru.aberezhnoy.client.controller.Controller;
 
-import java.io.IOException;
-
 public class MainClientApplication extends Application {
 
     private static Initializable activeController;

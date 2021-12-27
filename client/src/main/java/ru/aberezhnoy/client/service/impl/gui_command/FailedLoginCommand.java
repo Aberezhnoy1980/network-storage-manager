@@ -6,6 +6,8 @@ import ru.aberezhnoy.client.service.CommandService;
 import ru.aberezhnoy.common.domain.Command;
 import ru.aberezhnoy.common.domain.CommandType;
 
+import java.lang.reflect.InvocationTargetException;
+
 public class FailedLoginCommand implements CommandService {
 
     @Override

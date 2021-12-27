@@ -7,6 +7,7 @@ import ru.aberezhnoy.common.domain.Command;
 import ru.aberezhnoy.common.domain.CommandType;
 import ru.aberezhnoy.common.domain.FileInfo;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public class CloudFilesListCommand implements CommandService {

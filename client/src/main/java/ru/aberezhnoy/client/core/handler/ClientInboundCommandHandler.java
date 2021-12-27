@@ -12,6 +12,7 @@ import ru.aberezhnoy.client.service.CommandDictionaryService;
 import ru.aberezhnoy.common.domain.Command;
 import ru.aberezhnoy.common.domain.CommandType;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 
 public class ClientInboundCommandHandler extends SimpleChannelInboundHandler<Command> {
