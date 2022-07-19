@@ -6,6 +6,7 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import ru.aberezhnoy.client.core.ClientPipelineCheckoutService;
 import ru.aberezhnoy.client.service.Callback;
 import ru.aberezhnoy.common.domain.Command;
 import ru.aberezhnoy.common.domain.CommandType;
@@ -32,9 +33,9 @@ public class FilesInboundClientHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object chunkedFile) throws Exception {
         ByteBuf byteBuf = (ByteBuf) chunkedFile;
 
-        String absoluteFileNameForClient = userDirectory + "\\" + fileName;
+        String absoluteFileNameForClient = userDirectory + File.separator + fileName;
         File newFile = new File(absoluteFileNameForClient);
-        newFile.createNewFile();
+//        newFile.createNewFile();
 
         LOGGER.info("Создан файл и запущен процесс приема файла на клиента по пути " + absoluteFileNameForClient);
 

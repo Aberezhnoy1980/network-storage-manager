@@ -12,30 +12,14 @@ import java.nio.file.Path;
 @ToString
 public class FileInfo implements Serializable {
 
-    public enum FileType implements Serializable {
-        FILE("F"), DIRECTORY("D");
-
-        private final String name;
-
-        FileType(String name) {
-            this.name = name;
-        }
-
-        public String getName() {
-            return name;
-        }
-    }
-
     private final String fileName;
     private final String path;
-
     private final FileType fileType;
-
     private long size;
 
     public FileInfo(Path path) {
         try {
-            this.path=path.toString();
+            this.path = path.toString();
             this.fileName = path.getFileName().toString();
             this.size = Files.size(path);
             this.fileType = Files.isDirectory(path) ? FileType.DIRECTORY : FileType.FILE;
@@ -43,7 +27,21 @@ public class FileInfo implements Serializable {
                 this.size = -1L;
             }
         } catch (IOException e) {
-            throw new RuntimeException ("Не удалось собрать информацию о файле по пути " + path);
+            throw new RuntimeException("Не удалось собрать информацию о файле по пути " + path);
+        }
+    }
+
+    public enum FileType implements Serializable {
+        FILE("F"), DIRECTORY("D");
+
+        private String name;
+
+        FileType(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
         }
     }
 

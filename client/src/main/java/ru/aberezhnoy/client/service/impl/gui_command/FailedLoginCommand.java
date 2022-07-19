@@ -6,12 +6,14 @@ import ru.aberezhnoy.client.service.CommandService;
 import ru.aberezhnoy.common.domain.Command;
 import ru.aberezhnoy.common.domain.CommandType;
 
+import java.lang.reflect.InvocationTargetException;
+
 public class FailedLoginCommand implements CommandService {
 
     @Override
     public void processCommand(Command command) {
         Controller currentController = (Controller) MainClientApplication.getActiveController();
-        currentController.createAlertOnGUI("Такой логин уже существует" + " с другим паролем. Введите другую пару логин/пароль для регистрации");
+        currentController.createAlertOnGUI("Такой логин уже существует с другим паролем. Введите другую пару логин/пароль для регистрации");
     }
 
     @Override

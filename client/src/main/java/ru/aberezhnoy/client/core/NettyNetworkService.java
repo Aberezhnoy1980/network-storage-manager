@@ -1,10 +1,7 @@
 package ru.aberezhnoy.client.core;
 
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.EventLoopGroup;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
@@ -41,21 +38,22 @@ public class NettyNetworkService implements NetworkService {
         return network;
     }
 
-    public static void initializeNetworkService (Callback setButtonsAbleAndUpdateFilesListCallback) {
-        Thread t = new Thread (() -> {
+    public static void initializeNetworkService(Callback setButtonsAbleAndUpdateFilesListCallback) {
+        Thread t = new Thread(() -> {
             EventLoopGroup workGroup = new NioEventLoopGroup();
             try {
                 Bootstrap bootstrap = new Bootstrap();
                 bootstrap.group(workGroup)
                         .channel(NioSocketChannel.class)
-                        .handler(new ChannelInitializer<SocketChannel>() {
+                        .handler(new ChannelInitializer<NioSocketChannel>() {
                             @Override
-                            protected void initChannel(SocketChannel socketChannel) {
+                            protected void initChannel(NioSocketChannel socketChannel) {
                                 channel = socketChannel;
-                                socketChannel.pipeline()
-                                        .addLast(new ObjectDecoder(ClassResolvers.cacheDisabled(null)))
-                                        .addLast(new ObjectEncoder())
-                                        .addLast(new ClientInboundCommandHandler(setButtonsAbleAndUpdateFilesListCallback));
+                                socketChannel.pipeline().addLast (
+                                        new ObjectDecoder(ClassResolvers.cacheDisabled(null)),
+                                        new ObjectEncoder(),
+                                        new ClientInboundCommandHandler(setButtonsAbleAndUpdateFilesListCallback)
+                                        );
                             }
                         });
                 ChannelFuture future = bootstrap.connect(SERVER_HOST, SERVER_PORT).sync();
@@ -71,7 +69,7 @@ public class NettyNetworkService implements NetworkService {
     }
 
     @Override
-    public void sendCommand (Command command) {
+    public void sendCommand(Command command) {
         channel.writeAndFlush(command);
         LOGGER.info("С клиента на сервер отправлена команда " + command.getCommandName() + " с аргументами " + Arrays.asList(command.getArgs()));
     }
@@ -86,4 +84,21 @@ public class NettyNetworkService implements NetworkService {
             LOGGER.throwing(Level.ERROR, e);
         }
     }
+
+    @Override
+    public void closeConnection() {
+        try {
+            if (isConnected()) {
+                channel.close().sync();
+            }
+        } catch (InterruptedException e) {
+            LOGGER.throwing(Level.ERROR, e);
+        }
+    }
+
+    @Override
+    public boolean isConnected() {
+        return channel != null && !channel.isShutdown();
+    }
+
 }

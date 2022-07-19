@@ -1,5 +1,6 @@
 package ru.aberezhnoy.client.factory;
 
+import ru.aberezhnoy.client.core.NettyNetworkService;
 import ru.aberezhnoy.client.core.NetworkService;
 import ru.aberezhnoy.client.service.Callback;
 import ru.aberezhnoy.client.service.CommandDictionaryService;
@@ -8,6 +9,7 @@ import ru.aberezhnoy.client.service.impl.ClientCommandDictionaryServiceImpl;
 import ru.aberezhnoy.client.service.impl.gui_command.AcceptedLoginCommand;
 import ru.aberezhnoy.client.service.impl.gui_command.CloudFilesListCommand;
 import ru.aberezhnoy.client.service.impl.gui_command.FailedLoginCommand;
+import ru.aberezhnoy.client.service.impl.gui_command.UploadFileCommand;
 
 import java.util.Arrays;
 import java.util.List;
